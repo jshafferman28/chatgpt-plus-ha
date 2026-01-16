@@ -30,15 +30,15 @@ WORKDIR /app
 # Copy rootfs
 COPY rootfs /
 
-# Install app dependencies
-WORKDIR /app
-RUN npm install --only=production
-
-# Set environment variables
+# Set environment variables before npm install
 ENV \
     NODE_ENV=production \
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
     PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium
+
+# Install app dependencies
+WORKDIR /app
+RUN npm install --only=production
 
 # Build arguments
 ARG BUILD_ARCH
